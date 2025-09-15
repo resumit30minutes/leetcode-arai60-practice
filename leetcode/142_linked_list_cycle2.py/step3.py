@@ -3,20 +3,21 @@ class Solution:
         slow = head
         fast = head
 
+        meeting_node = None
         while fast is not None and fast.next is not None:
             slow = slow.next
             fast = fast.next.next
 
             if slow == fast:
+                meeting_node = slow
                 break
 
-        if fast is None or fast.next is None:
+        if meeting_node is None:
             return None
         
         result = head
-        while result != slow:
+        while meeting_node != result:
+            meeting_node = meeting_node.next
             result = result.next
-            slow = slow.next
 
         return result
-    
