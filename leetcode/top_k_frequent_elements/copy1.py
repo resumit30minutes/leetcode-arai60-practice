@@ -1,5 +1,19 @@
 from typing import List
+import heapq
+from collections import defaultdict
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        return []
+        num_to_frequency = defaultdict(int)
+        for num in nums:
+            num_to_frequency[num] += 1
+            
+        top_k_frequent = []
+        for num, frequency in num_to_frequency.items():
+            heapq.heappush(top_k_frequent, (frequency, num))
+            if len(top_k_frequent) > k:
+                heapq.heappop(top_k_frequent)
+                
+        return [ num for frequency, num in top_k_frequent ]
+
+            
